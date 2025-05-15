@@ -30,7 +30,10 @@ src/
 ├── App.tsx            # Componente principal
 ├── main.tsx           # Punto de entrada
 
-🛠️ Instalación y uso
+
+## 🛠️ Instalación y uso
+
+```bash
 # Clona el repositorio
 git clone https://github.com/tu-usuario/software-a-la-carta.git
 cd software-a-la-carta
