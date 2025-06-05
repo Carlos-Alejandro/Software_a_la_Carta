@@ -1,5 +1,8 @@
 @import "tailwindcss";
 
+body {
+  background-color: #0f172a; /* Azul oscuro, muy similar al de la imagen */
+}
 
 
 
