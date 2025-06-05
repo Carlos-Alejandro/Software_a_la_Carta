@@ -1,7 +1,13 @@
 @import "tailwindcss";
 
 body {
-  background-color: #0f172a; /* Azul oscuro, muy similar al de la imagen */
+  font-family: 'Manrope', sans-serif;
+  background: linear-gradient(120deg, #0f0f0f, #0d1b2a);
+  color: white;
+}
+
+html {
+  scroll-behavior: smooth;
 }
 
 

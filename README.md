@@ -1,50 +1,71 @@
-# 🧩 Software a la Carta
+# Software a la Carta 🚀
 
-**Soluciones digitales a tu medida.**  
-Proyecto profesional de desarrollo web enfocado en la creación de sitios y sistemas personalizados con React, TypeScript y Vite.
-
----
-
-## 🚀 Tecnologías utilizadas
-
-- ⚛️ React + TypeScript
-- ⚡ Vite
-- 🌐 React Router DOM
-- 🎨 TailwindCSS
-- 🌍 i18next (soporte multilenguaje)
-- 🧩 Arquitectura modular de componentes
+**Software a la Carta** es una empresa dedicada al desarrollo de soluciones digitales a la medida.  
+Este repositorio contiene el código fuente del sitio web desarrollado con React, TypeScript, Vite y Tailwind CSS.
 
 ---
 
 ## 📁 Estructura del proyecto
 
-```bash
+```
 src/
-├── assets/            # Imágenes, íconos y recursos estáticos
-├── components/        # Componentes reutilizables (navbar, footer, etc.)
-├── i18n/              # Configuración de idiomas (i18next)
+├── assets/               # Imágenes, íconos, logos
+├── components/           # Componentes reutilizables (Navbar, Footer, etc.)
+├── i18n/                 # Configuración multilenguaje con i18next
 │   ├── i18n.ts
-│   └── en.json / es.json
-├── pages/             # Secciones del sitio (Home, About, Projects, Contact)
-├── router/            # Configuración de rutas (AppRouter.tsx)
-├── App.tsx            # Componente principal
-├── main.tsx           # Punto de entrada
+│   └── locales/
+│       ├── en.json
+│       └── es.json
+├── pages/                # Vistas principales (Home, About, Projects, Contact)
+├── router/               # Ruteo de la aplicación
+│   └── AppRouter.tsx
+├── App.tsx               # Componente principal
+├── main.tsx              # Punto de entrada
+```
 
-🛠️ Instalación y uso
-# Clona el repositorio
-git clone https://github.com/tu-usuario/software-a-la-carta.git
-cd software-a-la-carta
+---
 
-# Instala dependencias
-npm install
+## 🧰 Tecnologías utilizadas
 
-# Ejecuta el servidor de desarrollo
-npm run dev
+- [React](https://reactjs.org/)
+- [TypeScript](https://www.typescriptlang.org/)
+- [Vite](https://vitejs.dev/)
+- [Tailwind CSS](https://tailwindcss.com/)
+- [i18next](https://www.i18next.com/) + [react-i18next](https://react.i18next.com/)
 
+---
 
-🌐 Multilenguaje
-Este proyecto está configurado para trabajar con i18next.
-Los idiomas disponibles actualmente son:
+## 🌐 Multilenguaje
 
-🇲🇽 Español (es)
+La app soporta múltiples idiomas (actualmente Español 🇲🇽 e Inglés 🇺🇸)  
+Puedes cambiar el idioma mediante el componente `LanguageSwitcher`.
 
+---
+
+## 🛠️ Scripts disponibles
+
+```bash
+npm install       # Instala las dependencias
+npm run dev       # Inicia la aplicación en modo desarrollo
+npm run build     # Construye la app para producción
+```
+
+---
+
+## 📄 Estado del proyecto
+
+🔧 En desarrollo  
+🎯 Próximo objetivo: agregar contenido y conectar a backend/API
+
+---
+
+## 👨‍💻 Autores
+
+- Carlos Manuel Alejandro Martínez
+- Equipo de Software a la Carta
+
+---
+
+## 📝 Licencia
+
+Este proyecto es privado. No distribuir sin autorización.
