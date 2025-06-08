@@ -2,7 +2,7 @@ import React from "react";
 import About from "./About";
 import Services from "./Services";
 import Contact from "./Contact";
-import Hero from "./Home/Hero";
+import Hero from "../components/Hero/Hero";
 
 const features = [
     {
@@ -77,7 +77,8 @@ export default function Home() {
     return (
         <>
         { /* Inicio de la pagina web */}
-        <div id="home" className="bg-gradient-to-br from-blue-50 via-white to-purple-100 min-h-screen relative overflow-hidden">
+        <div id="home" className="bg-gradient-to-br from-blue-50 via-white to-purple-100 min-h-screen relative">
+
             {/* Hero Section */}
             <Hero />
 

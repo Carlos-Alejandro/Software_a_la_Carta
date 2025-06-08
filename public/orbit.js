@@ -16,16 +16,27 @@ var Orbit = {};
     interactive = true;
 
   self.init = function () {
-    canvas = document.createElement("canvas");
-    canvas.width = innerWidth;
-    canvas.height = innerHeight;
-    canvas.style.backgroundColor = "transparent";
-    canvas.style.position = "absolute";
-    canvas.style.top = 0;
-    canvas.style.left = 0;
-    canvas.style.zIndex = -1;
+    console.log("🌌 Orbit.js está funcionando");
 
-    document.body.appendChild(canvas);
+    const target = document.getElementById("orbit-container");
+    if (!target) return;
+
+    canvas = document.createElement("canvas");
+
+    const rect = target.getBoundingClientRect();
+    canvas.width = rect.width;
+    canvas.height = rect.height;
+
+    canvas.style.position = "absolute";
+    canvas.style.top = "0";
+    canvas.style.left = "0";
+    canvas.style.width = "100%";
+    canvas.style.height = "100%";
+    canvas.style.backgroundColor = "transparent";
+    canvas.style.zIndex = "0";
+    canvas.style.pointerEvents = "none";
+
+    target.appendChild(canvas);
 
     if (!!self.gotSupport()) {
       context = canvas.getContext("2d");
@@ -41,14 +52,17 @@ var Orbit = {};
       window.onresize = onResize;
       self.createParticles();
     } else {
-      console.error("Orbit: Canvas no soportado.");
+      console.error("Sorry, your browser doesn't support canvas.");
     }
   };
 
   function onResize() {
-    canvas.width = window.innerWidth;
-    canvas.height = window.innerHeight;
+    if (!canvas || !canvas.parentElement) return;
+    const rect = canvas.parentElement.getBoundingClientRect();
+    canvas.width = rect.width;
+    canvas.height = rect.height;
   }
+
 
   self.gotSupport = function () {
     return canvas.getContext && canvas.getContext("2d");
@@ -81,7 +95,7 @@ var Orbit = {};
   };
 
   self.createParticles = function () {
-    for (var quantity = 0, len = 50; quantity < len; quantity++) {
+    for (var i = 0; i < 50; i++) {
       particles.push({
         x: mouse.x,
         y: mouse.y,
@@ -102,14 +116,13 @@ var Orbit = {};
   };
 
   self.addParticles = function () {
-    var quantity = 10;
-    while (quantity--) {
-      var x = interactive ? mouse.x : Math.random() * canvas.width;
-      var y = interactive ? mouse.y : Math.random() * canvas.height;
+    for (let i = 0; i < 10; i++) {
+      const x = interactive ? mouse.x : Math.random() * canvas.width;
+      const y = interactive ? mouse.y : Math.random() * canvas.height;
 
       particles.push({
-        x: x,
-        y: y,
+        x,
+        y,
         lastX: x,
         lastY: y,
         originX: x,
@@ -137,57 +150,51 @@ var Orbit = {};
   };
 
   self.update = function () {
-    particles.forEach(function (particle, index) {
-      particle.lastX = particle.x;
-      particle.lastY = particle.y;
+    particles.forEach((p, i) => {
+      p.lastX = p.x;
+      p.lastY = p.y;
 
-      particle.originX += (mouse.x - particle.originX) * (particle.speed + ease);
-      particle.originY += (mouse.y - particle.originY) * (particle.speed + ease);
+      p.originX += (mouse.x - p.originX) * (p.speed + ease);
+      p.originY += (mouse.y - p.originY) * (p.speed + ease);
 
-      particle.radius += (size - particle.radius) * (particle.speed + ease);
-      particle.speed += (speed - particle.speed) * (particle.speed + ease);
-      particle.orbit += (particle.minOrbit - particle.orbit) * (particle.speed + ease);
-      particle.offset += (orbit / 100 - particle.offset) * (particle.speed + ease);
+      p.radius += (size - p.radius) * (p.speed + ease);
+      p.speed += (speed - p.speed) * (p.speed + ease);
+      p.orbit += (p.minOrbit - p.orbit) * (p.speed + ease);
+      p.offset += (orbit / 100 - p.offset) * (p.speed + ease);
 
-      particle.x =
-        particle.originX +
-        Math.sin(index + particle.angle) * particle.orbit * particle.offset;
-      particle.y =
-        particle.originY +
-        Math.cos(index + particle.angle) * particle.orbit * particle.offset;
+      p.x = p.originX + Math.sin(i + p.angle) * p.orbit * p.offset;
+      p.y = p.originY + Math.cos(i + p.angle) * p.orbit * p.offset;
 
-      particle.angle += particle.speed;
+      p.angle += p.speed;
 
-      particle.x = Math.max(particle.radius * 0.5, Math.min(particle.x, innerWidth - particle.radius * 0.5));
-      particle.y = Math.max(particle.radius * 0.5, Math.min(particle.y, innerHeight - particle.radius * 0.5));
+      p.x = Math.max(p.radius * 0.5, Math.min(p.x, canvas.width - p.radius * 0.5));
+      p.y = Math.max(p.radius * 0.5, Math.min(p.y, canvas.height - p.radius * 0.5));
     });
   };
 
   self.render = function () {
-    particles.forEach(function (particle) {
+    particles.forEach((p) => {
       context.save();
       context.globalAlpha = 1.0;
-      context.strokeStyle =
-        "hsl(" +
-        ((particle.x / canvas.width + particle.y / canvas.height) * 180) +
-        ", 100%, 70%)";
-      context.lineWidth = particle.radius;
+
+      const hue = ((p.x / canvas.width + p.y / canvas.height) * 180).toFixed(0);
+      context.strokeStyle = `hsl(${hue}, 100%, 70%)`;
+      context.lineWidth = p.radius;
       context.lineCap = "round";
       context.lineJoin = "round";
+
       context.beginPath();
-      context.moveTo(particle.lastX, particle.lastY);
-      context.lineTo(particle.x, particle.y);
+      context.moveTo(p.lastX, p.lastY);
+      context.lineTo(p.x, p.y);
       context.closePath();
       context.stroke();
 
-      context.fillStyle =
-        "hsl(" +
-        ((particle.x / canvas.width + particle.y / canvas.height) * 180) +
-        ", 100%, 70%)";
+      context.fillStyle = `hsl(${hue}, 100%, 70%)`;
       context.beginPath();
-      context.arc(particle.x, particle.y, particle.radius / 2, 0, Math.PI * 2);
+      context.arc(p.x, p.y, p.radius / 2, 0, Math.PI * 2);
       context.fill();
       context.closePath();
+
       context.restore();
     });
   };
@@ -196,20 +203,17 @@ var Orbit = {};
     return ~~(Math.random() * (max - min + 1) + min);
   };
 
-  window.requestAnimFrame = (function () {
-    return (
-      window.requestAnimationFrame ||
-      window.webkitRequestAnimationFrame ||
-      window.mozRequestAnimationFrame ||
-      window.oRequestAnimationFrame ||
-      window.msRequestAnimationFrame ||
-      function (callback) {
-        window.setTimeout(callback, 1000 / FPS);
-      }
-    );
-  })();
+  window.requestAnimFrame =
+    window.requestAnimationFrame ||
+    window.webkitRequestAnimationFrame ||
+    window.mozRequestAnimationFrame ||
+    function (cb) {
+      window.setTimeout(cb, 1000 / FPS);
+    };
 
-  window.addEventListener
-    ? window.addEventListener("load", self.init, false)
-    : (window.onload = self.init);
+  window.addEventListener("load", () => {
+    if (typeof Orbit.init === "function") {
+      Orbit.init();
+    }
+  });
 })(Orbit);

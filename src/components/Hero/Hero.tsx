@@ -4,18 +4,26 @@ import heroAnimation from "../../assets/animations/hero-animation.json";
 import OrbitCanvas from "./OrbitCanvas";
 
 export default function Hero() {
+    
   return (
-    <section className="relative overflow-hidden bg-gradient-to-br from-blue-50 via-white to-blue-100">
-        {      /* Componente de animación de órbita */}
+    <section className="relative overflow-hidden min-h-[700px] md:min-h-screen bg-gradient-to-br from-blue-50 via-white to-blue-100">
+
+        {/* Contenedor específico para la animación canvas */}
+<div
+  id="orbit-container"
+  className="absolute inset-0 h-full z-0 pointer-events-none overflow-hidden bg-gradient-to-b from-white/70 via-blue-100/30 to-transparent"
+/>
+
+        {/* Componente de animación de órbita */}
         <OrbitCanvas />
 
-      {/* Elementos decorativos */}
-      <div className="absolute inset-0 pointer-events-none z-0">
-        <div className="animate-pulse absolute top-0 left-1/2 w-96 h-96 bg-blue-300 opacity-20 rounded-full blur-3xl -translate-x-1/2 -translate-y-1/2" />
-        <div className="animate-spin-slow absolute bottom-0 right-0 w-72 h-72 bg-purple-300 opacity-10 rounded-full blur-2xl" />
-      </div>
+        {/* Elementos decorativos */}
+        <div className="absolute inset-0 pointer-events-none z-0">
+            <div className="animate-pulse absolute top-0 left-1/2 w-96 h-96 bg-blue-300 opacity-20 rounded-full blur-3xl -translate-x-1/2 -translate-y-1/2" />
+            <div className="animate-spin-slow absolute bottom-0 right-0 w-72 h-72 bg-purple-300 opacity-10 rounded-full blur-2xl" />
+        </div>
 
-      <div className="container mx-auto px-6 py-32 relative z-10 flex flex-col md:flex-row items-center justify-between text-center md:text-left">
+        <div className="container mx-auto px-6 py-32 relative z-10 flex flex-col md:flex-row items-center justify-between text-center md:text-left">
         {/* Columna izquierda */}
         <motion.div
           className="md:w-1/2 space-y-6"
