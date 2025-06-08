@@ -1,4 +1,8 @@
 import React from "react";
+import About from "./About";
+import Services from "./Services";
+import Contact from "./Contact";
+import Hero from "./Home/Hero";
 
 const features = [
     {
@@ -52,31 +56,30 @@ const testimonials = [
     },
 ];
 
+
+
 export default function Home() {
+   
+    React.useEffect(() => {
+    const scrollTo = localStorage.getItem("scrollTo");
+    if (scrollTo) {
+        const el = document.querySelector(scrollTo);
+        if (el) {
+            setTimeout(() => {
+                el.scrollIntoView({ behavior: "smooth" });
+            }, 100); // Espera breve para que el DOM cargue
+        }
+        localStorage.removeItem("scrollTo");
+    }
+}, []);
+
+
     return (
-        <div className="bg-gradient-to-br from-blue-50 via-white to-purple-100 min-h-screen">
+        <>
+        { /* Inicio de la pagina web */}
+        <div id="home" className="bg-gradient-to-br from-blue-50 via-white to-purple-100 min-h-screen relative overflow-hidden">
             {/* Hero Section */}
-            <section className="relative overflow-hidden">
-                <div className="absolute inset-0 pointer-events-none">
-                    <div className="animate-pulse absolute top-0 left-1/2 w-96 h-96 bg-blue-200 opacity-30 rounded-full blur-3xl -translate-x-1/2 -translate-y-1/2" />
-                    <div className="animate-spin-slow absolute bottom-0 right-0 w-72 h-72 bg-purple-200 opacity-20 rounded-full blur-2xl" />
-                </div>
-                <div className="container mx-auto px-6 py-24 relative z-10 flex flex-col items-center text-center">
-                    <h1 className="text-5xl md:text-6xl font-extrabold text-gray-900 mb-6 animate-fade-in-down">
-                        Software a la Carta
-                    </h1>
-                    <p className="text-xl md:text-2xl text-gray-700 mb-8 animate-fade-in-up">
-                        Soluciones digitales personalizadas para tu negocio. <br />
-                        ¡Transforma tu empresa con tecnología a medida!
-                    </p>
-                    <a
-                        href="#contacto"
-                        className="bg-blue-600 hover:bg-blue-700 text-white px-8 py-3 rounded-full font-semibold shadow-lg transition-all duration-300 animate-bounce"
-                    >
-                        Solicita tu demo
-                    </a>
-                </div>
-            </section>
+            <Hero />
 
             {/* Features Section */}
             <section className="container mx-auto px-6 py-16">
@@ -123,8 +126,7 @@ export default function Home() {
                                 <img
                                     src={t.avatar}
                                     alt={t.name}
-                                    className="w-12 h-12 rounded-full mr-4 border-2 border-blue-400"
-                                />
+                                    className="w-12 h-12 rounded-full mr-4 border-2 border-blue-400" />
                                 <div>
                                     <div className="font-semibold text-gray-900">{t.name}</div>
                                     <div className="text-sm text-gray-500">{t.company}</div>
@@ -137,7 +139,7 @@ export default function Home() {
             </section>
 
             {/* Call to Action */}
-            <section id="contacto" className="bg-gradient-to-r from-blue-500 to-purple-500 py-16">
+            <section className="bg-gradient-to-r from-blue-500 to-purple-500 py-16">
                 <div className="container mx-auto px-6 text-center text-white">
                     <h2 className="text-3xl md:text-4xl font-bold mb-4">¿Listo para digitalizar tu negocio?</h2>
                     <p className="mb-8 text-lg">
@@ -178,6 +180,27 @@ export default function Home() {
                 `}
             </style>
         </div>
+
+        {/* About Section */}
+            <section id="about" className="scroll-mt-12">
+                <About />
+            </section>  
+
+        { /* Servicios que ofrecemos */}
+            <section id="services" className="scroll-mt-12">
+                <Services />
+            </section>  
+        
+        { /* Contacto */}
+            <section id="contacto" className="scroll-mt-0">
+                <Contact />
+            </section>  
+            
+        { /* Fin de la pagina web */}
+
+            
+            
+        </>
     );
 }
 
