@@ -13,7 +13,6 @@ export default function Hero() {
   id="orbit-container"
   className="absolute inset-0 h-full z-0 pointer-events-none overflow-hidden bg-gradient-to-b from-white/70 via-blue-100/30 to-transparent"
 />
-
         {/* Componente de animación de órbita */}
         <OrbitCanvas />
 

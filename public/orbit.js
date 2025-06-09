@@ -23,10 +23,7 @@ var Orbit = {};
 
     canvas = document.createElement("canvas");
 
-    const rect = target.getBoundingClientRect();
-    canvas.width = rect.width;
-    canvas.height = rect.height;
-
+    // Estilos iniciales
     canvas.style.position = "absolute";
     canvas.style.top = "0";
     canvas.style.left = "0";
@@ -35,26 +32,35 @@ var Orbit = {};
     canvas.style.backgroundColor = "transparent";
     canvas.style.zIndex = "0";
     canvas.style.pointerEvents = "none";
+    canvas.style.display = "none"; // <-- Oculto al inicio
 
-    target.appendChild(canvas);
+    // Espera 5 segundos antes de mostrar y comenzar
+    setTimeout(() => {
+      canvas.style.display = "block";
+      const rect = target.getBoundingClientRect();
+      canvas.width = rect.width;
+      canvas.height = rect.height;
+      target.appendChild(canvas);
 
-    if (!!self.gotSupport()) {
-      context = canvas.getContext("2d");
+      if (!!self.gotSupport()) {
+        context = canvas.getContext("2d");
 
-      if ("ontouchstart" in window) {
-        canvas.addEventListener("touchstart", self.onTouchStart, false);
-        document.addEventListener("touchmove", self.onTouchMove, false);
+        if ("ontouchstart" in window) {
+          canvas.addEventListener("touchstart", self.onTouchStart, false);
+          document.addEventListener("touchmove", self.onTouchMove, false);
+        } else {
+          canvas.addEventListener("mousedown", self.onMouseDown, false);
+          document.addEventListener("mousemove", self.onMouseMove, false);
+        }
+
+        window.onresize = onResize;
+        self.createParticles();
       } else {
-        canvas.addEventListener("mousedown", self.onMouseDown, false);
-        document.addEventListener("mousemove", self.onMouseMove, false);
+        console.error("Sorry, your browser doesn't support canvas.");
       }
-
-      window.onresize = onResize;
-      self.createParticles();
-    } else {
-      console.error("Sorry, your browser doesn't support canvas.");
-    }
+    }, ); // Mostrar canvas y ejecutar lógica tras 5s
   };
+
 
   function onResize() {
     if (!canvas || !canvas.parentElement) return;

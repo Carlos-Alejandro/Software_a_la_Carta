@@ -1,8 +1,8 @@
 // src/App.tsx
 import AppRouter from './router/AppRouter';
-import Navbar from './components/Navbar';
-import Whatsapp from './components/Whatsapp';
-import Footer from './components/Footer';
+import Navbar from './components/Layout/Navbar';
+import Whatsapp from './components/UI/Whatsapp';
+import Footer from './components/Layout/Footer';
 
 function App() {
   return (
