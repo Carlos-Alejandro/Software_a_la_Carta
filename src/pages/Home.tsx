@@ -5,6 +5,8 @@ import Contact from "./Contact";
 import Hero from "../components/Hero/Hero";
 import FeaturesSection from "../components/Sections/FeaturesSection";
 import TestimonialsSection from "../components/Sections/TestimonialsSection";
+import ProjectsSection from "../components/Sections/ProjectsSection";
+import StatsSection from "../components/Sections/StatsSection";
 
 
 
@@ -32,17 +34,14 @@ export default function Home() {
             {/* Hero Section */}
             <Hero />
 
+            {/* Projects Section */}
+            <ProjectsSection /> 
+
             {/* Features Section */}
             <FeaturesSection />
 
             {/* Animated Stats */}
-            <section className="bg-blue-50 py-12">
-                <div className="container mx-auto px-6 flex flex-col md:flex-row justify-center items-center gap-12">
-                    <Stat number={120} label="Proyectos Entregados" />
-                    <Stat number={98} label="Clientes Satisfechos" />
-                    <Stat number={10} label="Años de Experiencia" />
-                </div>
-            </section>
+            <StatsSection />
 
             {/* Testimonials */}
             <TestimonialsSection />
@@ -106,31 +105,5 @@ export default function Home() {
             
         { /* Fin de la pagina web */}
         </>
-    );
-}
-
-// Animated Stat component
-function Stat({ number, label }: { number: number; label: string }) {
-    const [count, setCount] = React.useState(0);
-    React.useEffect(() => {
-        let start = 0;
-        const end = number;
-        if (start === end) return;
-        let incrementTime = 20;
-        let timer = setInterval(() => {
-            start += Math.ceil(end / 50);
-            if (start >= end) {
-                start = end;
-                clearInterval(timer);
-            }
-            setCount(start);
-        }, incrementTime);
-        return () => clearInterval(timer);
-    }, [number]);
-    return (
-        <div className="flex flex-col items-center">
-            <div className="text-5xl font-extrabold text-blue-600 mb-2">{count}+</div>
-            <div className="text-lg text-gray-700">{label}</div>
-        </div>
     );
 }

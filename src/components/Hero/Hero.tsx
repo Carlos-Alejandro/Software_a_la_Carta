@@ -9,10 +9,10 @@ export default function Hero() {
     <section className="relative overflow-hidden min-h-[700px] md:min-h-screen bg-gradient-to-br from-blue-50 via-white to-blue-100">
 
         {/* Contenedor específico para la animación canvas */}
-<div
-  id="orbit-container"
-  className="absolute inset-0 h-full z-0 pointer-events-none overflow-hidden bg-gradient-to-b from-white/70 via-blue-100/30 to-transparent"
-/>
+        <div
+          id="orbit-container"
+          className="absolute inset-0 h-full z-0 pointer-events-none overflow-hidden bg-gradient-to-b from-white/70 via-blue-100/30 to-transparent"
+        />
         {/* Componente de animación de órbita */}
         <OrbitCanvas />
 
@@ -82,7 +82,8 @@ export default function Hero() {
         >
           <Lottie
             animationData={heroAnimation}
-            loop={true}
+            loop={false}
+            autoplay={true}
             className="w-full max-w-md mx-auto drop-shadow-xl"
           />
         </motion.div>

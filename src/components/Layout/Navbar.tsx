@@ -146,7 +146,7 @@ const Navbar: React.FC = () => {
         </ul>
 
         <div className="hidden md:flex items-center gap-3">
-          <Link to="/ecommerce">
+          <Link to="/e-commerce">
             <motion.button
               whileHover={{ scale: 1.05 }}
               className="bg-blue-600 text-white px-5 py-2 rounded-full font-semibold shadow-md hover:bg-blue-700 transition flex items-center gap-2 cursor-pointer"

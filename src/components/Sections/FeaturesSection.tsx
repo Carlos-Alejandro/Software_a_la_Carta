@@ -1,5 +1,10 @@
-// src/components/FeaturesSection.tsx
-import React from "react";
+import { Swiper, SwiperSlide } from 'swiper/react';
+// @ts-ignore
+import 'swiper/css';
+// @ts-ignore
+import 'swiper/css/pagination';
+import { Pagination } from 'swiper/modules';
+import { motion } from 'framer-motion';
 
 const features = [
   {
@@ -38,23 +43,40 @@ const features = [
 
 export default function FeaturesSection() {
   return (
-    <section className="container mx-auto px-6 py-16">
+    <section className="bg-gray-50 py-16 px-4 md:px-20 overflow-hidden">
       <h2 className="text-3xl md:text-4xl font-bold text-center mb-12 text-gray-800">
         ¿Por qué elegirnos?
       </h2>
-      <div className="grid md:grid-cols-3 gap-10">
-        {features.map((feature, idx) => (
-          <div
-            key={feature.title}
-            className="bg-white rounded-xl shadow-lg p-8 flex flex-col items-center hover:scale-105 transition-transform duration-300 animate-fade-in"
-            style={{ animationDelay: `${idx * 0.2}s` } as React.CSSProperties}
+
+      <Swiper
+        className="!overflow-visible w-full"
+        spaceBetween={30}
+        pagination={{ clickable: true }}
+        breakpoints={{
+          0: { slidesPerView: 'auto' },
+          768: { slidesPerView: 3 },
+        }}
+        modules={[Pagination]}
+      >
+        {features.map((feature, index) => (
+          <SwiperSlide
+            key={index}
+            className="w-[280px] md:w-auto"
           >
-            <div className="mb-4">{feature.icon}</div>
-            <h3 className="text-xl font-semibold mb-2 text-gray-900">{feature.title}</h3>
-            <p className="text-gray-600 text-center">{feature.description}</p>
-          </div>
+            <motion.div
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: index * 0.2 }}
+              viewport={{ once: true }}
+              className="bg-white rounded-xl shadow-lg p-8 h-[280px] flex flex-col items-center justify-start text-center transition-transform hover:scale-[1.03] duration-300"
+            >
+              <div className="mb-4">{feature.icon}</div>
+              <h3 className="text-xl font-semibold mb-2 text-gray-900">{feature.title}</h3>
+              <p className="text-gray-600">{feature.description}</p>
+            </motion.div>
+          </SwiperSlide>
         ))}
-      </div>
+      </Swiper>
     </section>
   );
 }
