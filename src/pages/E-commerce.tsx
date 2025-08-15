@@ -1,121 +1,81 @@
-import { useState } from "react";
-import {FaFilter, FaStar, FaShoppingCart } from "react-icons/fa";
+import React from "react";
 
-const products = [
-  {
-    id: 1,
-    name: "Procesador Ryzen 7 5800X",
-    description: "8 núcleos, 16 hilos, 4.7 GHz Turbo, AM4",
-    category: "CPU",
-    price: 399.99,
-    rating: 4.8,
-    image: "https://arteus.pe/cdn/shop/files/amd-100-100000063wof-procesador-amd-ryzen-7-5800x-3-80ghz-32mb-l3-8-core-am4-7nm-105w-arteus_800x.jpg?v=1708735677"
-  },
-  {
-    id: 2,
-    name: "Memoria RAM Corsair 16GB DDR4",
-    description: "2x8GB, 3200MHz, CL16",
-    category: "RAM",
-    price: 89.99,
-    rating: 4.5,
-    image: "https://via.placeholder.com/300x200?text=Corsair+RAM"
-  },
-  {
-    id: 3,
-    name: "Disco SSD NVMe 1TB",
-    description: "Lectura hasta 3500 MB/s",
-    category: "Almacenamiento",
-    price: 129.99,
-    rating: 4.7,
-    image: "https://via.placeholder.com/300x200?text=SSD+NVMe+1TB"
-  }
-];
-
-const categories = ["CPU", "RAM", "Almacenamiento"];
-
-const EcommercePage = () => {
-  const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
-
-  const filteredProducts = selectedCategory
-    ? products.filter((p) => p.category === selectedCategory)
-    : products;
-
+const ECommerce: React.FC = () => {
   return (
-    <div className="bg-gray-100 min-h-screen p-6">
-      <header className="text-center mb-10 pt-28">
-        <h1 className="text-4xl font-bold text-blue-700">Tienda de Componentes de Computadora</h1>
-        <p className="text-gray-600 mt-2">Encuentra lo mejor en hardware para tu PC</p>
-      </header>
-
-      <section className="flex flex-col md:flex-row gap-6">
-        <aside className="md:w-1/4 bg-white rounded-xl shadow p-4">
-          <h2 className="text-lg font-semibold flex items-center gap-2 mb-4 text-gray-800">
-            <FaFilter /> Filtros
-          </h2>
-          <div className="space-y-2">
-            {categories.map((cat) => (
-              <button
-                key={cat}
-                onClick={() => setSelectedCategory(cat)}
-                className={`block w-full text-left px-4 py-2 rounded-lg font-medium transition hover:bg-blue-100 ${
-                  selectedCategory === cat ? "bg-blue-200 text-blue-900" : "bg-gray-100 text-gray-700"
-                }`}
-              >
-                {cat}
-              </button>
-            ))}
-            <button
-              onClick={() => setSelectedCategory(null)}
-              className="mt-4 text-blue-600 hover:underline text-sm"
-            >
-              Quitar filtros
-            </button>
-          </div>
-        </aside>
-
-        <main className="md:w-3/4 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-          {filteredProducts.map((product) => (
-  <div
-    key={product.id}
-    className="bg-white rounded-2xl shadow-lg hover:shadow-2xl transition duration-300 flex flex-col overflow-hidden"
-  >
-    <div className="relative h-48 overflow-hidden">
-      <img
-        src={product.image}
-        alt={product.name}
-        className="w-full h-full object-cover transition-transform duration-300 hover:scale-105"
-        onError={(e) => {
-          (e.target as HTMLImageElement).src = "https://via.placeholder.com/300x200?text=No+Image";
-        }}
-      />
-      <span className="absolute top-2 left-2 bg-blue-600 text-white text-xs px-2 py-1 rounded-full shadow">
-        {product.category}
-      </span>
-    </div>
-
-    <div className="p-4 flex flex-col h-full">
-      <h3 className="text-lg font-bold text-gray-800 mb-1">{product.name}</h3>
-      <p className="text-sm text-gray-500 mb-2">{product.description}</p>
-
-      <div className="flex items-center gap-1 text-yellow-500 mb-2">
-        <FaStar />
-        <span className="text-sm text-gray-700">{product.rating}</span>
+    <div className="flex flex-col items-center justify-center min-h-screen bg-gradient-to-br from-indigo-500 via-purple-500 to-pink-500 relative overflow-hidden">
+      {/* Animated floating shapes */}
+      <div className="absolute top-0 left-0 w-full h-full pointer-events-none">
+        <div className="animate-bounce-slow absolute left-10 top-20 w-24 h-24 bg-white bg-opacity-20 rounded-full blur-xl" />
+        <div className="animate-spin-slow absolute right-20 bottom-32 w-32 h-32 bg-pink-300 bg-opacity-30 rounded-full blur-xl" />
+        <div className="animate-pulse absolute left-1/2 top-1/3 w-16 h-16 bg-indigo-400 bg-opacity-40 rounded-full blur-xl" />
       </div>
 
-      <div className="mt-auto flex items-center justify-between">
-        <span className="text-lg font-semibold text-green-600">${product.price.toFixed(2)}</span>
-        <button className="bg-blue-600 hover:bg-blue-700 text-white text-sm px-4 py-2 rounded-full flex items-center gap-2 shadow-md transition">
-          <FaShoppingCart /> Añadir
+      {/* Main content */}
+      <div className="z-10 flex flex-col items-center">
+        <div className="flex items-center gap-4 mb-6">
+          <svg
+            className="w-16 h-16 text-white animate-bounce"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth={2}
+            viewBox="0 0 24 24"
+          >
+            <path
+              d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2 9h14l-2-9M9 21a2 2 0 1 0 0-4 2 2 0 0 0 0 4zm8 0a2 2 0 1 0 0-4 2 2 0 0 0 0 4z"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            />
+          </svg>
+          <h1 className="text-5xl font-extrabold text-white drop-shadow-lg animate-fade-in">
+            ¡Próximamente!
+          </h1>
+        </div>
+        <p className="text-xl text-white/80 mb-8 animate-fade-in-delay text-center max-w-lg">
+          Estamos trabajando en una experiencia de e-commerce increíble para ti.<br />
+          ¡Prepárate para descubrir productos únicos, ofertas exclusivas y mucho más!
+        </p>
+        <button
+          className="px-8 py-3 bg-white text-indigo-600 font-bold rounded-full shadow-lg hover:bg-indigo-600 hover:text-white transition-all duration-300 animate-fade-in-delay2"
+          disabled
+        >
+          Mantente atento 🚀
         </button>
       </div>
-    </div>
-  </div>
-))}
 
-        </main>
-      </section>
+      {/* Custom animations */}
+      <style>
+        {`
+          .animate-bounce-slow {
+            animation: bounce 3s infinite;
+          }
+          .animate-spin-slow {
+            animation: spin 8s linear infinite;
+          }
+          .animate-fade-in {
+            animation: fadeIn 1.2s ease-out;
+          }
+          .animate-fade-in-delay {
+            animation: fadeIn 2s ease-out;
+          }
+          .animate-fade-in-delay2 {
+            animation: fadeIn 2.8s ease-out;
+          }
+          @keyframes bounce {
+            0%, 100% { transform: translateY(0);}
+            50% { transform: translateY(-30px);}
+          }
+          @keyframes spin {
+            0% { transform: rotate(0deg);}
+            100% { transform: rotate(360deg);}
+          }
+          @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(30px);}
+            to { opacity: 1; transform: translateY(0);}
+          }
+        `}
+      </style>
     </div>
   );
 };
 
-export default EcommercePage;
+export default ECommerce;

@@ -44,7 +44,7 @@ export default function Home() {
             <StatsSection />
 
             {/* Testimonials */}
-            <TestimonialsSection />
+            {/* <TestimonialsSection /> */}
             {/* Call to Action */}
             <section className="bg-gradient-to-r from-blue-500 to-purple-500 py-16">
                 <div className="container mx-auto px-6 text-center text-white">

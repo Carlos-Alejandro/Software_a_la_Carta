@@ -9,34 +9,35 @@ import { motion } from 'framer-motion';
 
 const projects = [
   {
-    title: 'Tienda en Línea',
+    title: 'Renta Vacacional Orquídeas',
     description:
-      'Desarrollamos una tienda virtual con carrito de compras, pagos con tarjeta y panel de administración.',
-    tags: ['Pasarela de pagos', 'Panel administrativo', 'Diseño intuitivo'],
-    image: 'https://ambiviumagency.com/wp-content/uploads/2025/04/Desarrollo-tiendas-online.jpg',
-    url: '#',
-  },
-  {
-    title: 'Reservas para Hoteles',
-    description:
-      'Creamos una plataforma para que los huéspedes reserven fácilmente desde su celular o computadora.',
-    tags: ['Web Responsive', 'Integración con WhatsApp', 'Diseño Personalizado'],
+      'Sitio web para una empresa de alquiler vacacional en la Riviera Maya. Se implementó galería de propiedades, formulario de contacto, integración con WhatsApp y diseño responsivo.',
+    tags: ['Reservas', 'Web responsive', 'Integración con WhatsApp'],
     image: 'https://staging-jubilee.flickr.com/65535/54533206557_82bcf75427_z.jpg',
     url: 'https://rentavacacionalorquideas.com.mx/',
   },
   {
-    title: 'Dashboard Empresarial',
+    title: 'Mayan Amazing Tours',
     description:
-      'Panel de control completo para revisar ventas, inventario y estadísticas de negocio en tiempo real.',
-    tags: ['Automatización', 'Multiusuario', 'Gráficas dinámicas'],
-    image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTLmzQy1yIBBl8xVQiqvTZ15OzTAERkR8lJow&s',
-    url: '#',
+      'Desarrollamos un sitio web para una agencia de tours con catálogo de paquetes, sistema de reservas vía WhatsApp, testimonios y diseño atractivo para dispositivos móviles.',
+    tags: ['Sitio turístico', 'Galería', 'Reservas por WhatsApp'],
+    image: '/Proyectos/MayaAmazing.png',
+    url: 'https://mayanamazingtours.com/',
+  },
+  {
+    title: 'Inplelec',
+    description:
+      'Sitio corporativo para empresa de instalaciones eléctricas. Se presentan servicios industriales, clientes destacados y contacto profesional.',
+    tags: ['Sitio corporativo', 'Diseño limpio', 'Optimización SEO'],
+    image: '/Proyectos/Inplelec.png',
+    url: 'https://inplelec.com/',
   },
 ];
 
 export const ProjectsSection = () => {
   return (
     <section className="relative py-16 pb-32 px-4 md:px-20 bg-blue-50 text-[#0d1b2a] w-full overflow-hidden">
+      {/* FONDOS DECORATIVOS */}
       <div className="absolute top-0 left-0 w-72 h-72 bg-blue-200 opacity-30 rounded-full blur-3xl animate-pulse -z-10" />
       <div className="absolute bottom-0 right-0 w-96 h-96 bg-purple-200 opacity-30 rounded-full blur-2xl animate-spin-slow -z-10" />
 
@@ -45,10 +46,13 @@ export const ProjectsSection = () => {
           initial={{ opacity: 0, y: -30 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
-          className="text-4xl font-bold text-center mb-12"
+          className="text-4xl font-bold text-center mb-2"
         >
           Proyectos Realizados
         </motion.h2>
+        <p className="text-center text-gray-500 text-sm mb-12">
+          Algunos de los sitios web que hemos desarrollado
+        </p>
 
         <Swiper
           spaceBetween={30}
@@ -71,7 +75,7 @@ export const ProjectsSection = () => {
                 <img
                   src={project.image}
                   alt={project.title}
-                  className="w-full h-44 object-cover"
+                  className="w-full h-44 object-cover border-b border-gray-200"
                 />
                 <div className="p-5 flex flex-col justify-between flex-grow">
                   <div>
@@ -96,7 +100,7 @@ export const ProjectsSection = () => {
                     href={project.url}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="inline-flex items-center text-blue-600 hover:text-blue-800 text-sm font-medium"
+                    className="inline-flex items-center text-blue-600 hover:text-blue-800 hover:underline text-sm font-medium"
                   >
                     Ver proyecto <FaExternalLinkAlt className="ml-2" />
                   </a>
