@@ -4,19 +4,19 @@ import { UserIcon, CodeBracketIcon, PencilSquareIcon } from "@heroicons/react/24
 const teamMembers = [
   {
     name: "Carlos Martínez",
-    role: "Diseñador UI/UX",
+    role: "Desarrollador Front-End",
     icon: <UserIcon className="w-5 h-5 text-blue-700" />,
     bio: "Transformando ideas en interfaces atractivas y funcionales.",
   },
   {
     name: "Diego Sanchez",
-    role: "Desarrolladora Full Stack",
+    role: "Desarrollador Full Stack",
     icon: <CodeBracketIcon className="w-5 h-5 text-blue-700" />,
     bio: "Especialista en soluciones web modernas y experiencias de usuario excepcionales.",
   },
   {
     name: "Brando Antonio",
-    role: "Fundador & CEO",
+    role: "Desarrollador Full Stack",
     icon: <PencilSquareIcon className="w-5 h-5 text-blue-700" />,
     bio: "Apasionado por la tecnología y la innovación, liderando Software a la Carta hacia el futuro.",
   },
