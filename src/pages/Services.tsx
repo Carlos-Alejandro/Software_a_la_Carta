@@ -50,9 +50,11 @@ const containerVariants = {
     },
 };
 
-const cardVariants = {
+import type { Variants } from "framer-motion";
+
+const cardVariants: Variants = {
     hidden: { opacity: 0, y: 40 },
-    visible: { opacity: 1, y: 0, transition: { type: "spring", stiffness: 80 } },
+    visible: { opacity: 1, y: 0, transition: { type: "spring" as const, stiffness: 80 } },
 };
 
 export default function Services() {

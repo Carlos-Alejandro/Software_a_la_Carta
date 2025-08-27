@@ -4,7 +4,6 @@ import Services from "./Services";
 import Contact from "./Contact";
 import Hero from "../components/Hero/Hero";
 import FeaturesSection from "../components/Sections/FeaturesSection";
-import TestimonialsSection from "../components/Sections/TestimonialsSection";
 import ProjectsSection from "../components/Sections/ProjectsSection";
 import StatsSection from "../components/Sections/StatsSection";
 
