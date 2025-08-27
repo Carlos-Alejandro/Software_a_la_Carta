@@ -58,7 +58,7 @@ var Orbit = {};
       } else {
         console.error("Sorry, your browser doesn't support canvas.");
       }
-    }, 5000); // Mostrar canvas y ejecutar lógica tras 5s
+    },); // Mostrar canvas y ejecutar lógica tras 5s
   };
 
 
