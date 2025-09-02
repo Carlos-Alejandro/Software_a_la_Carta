@@ -8,7 +8,7 @@ import {
   FaUser,
   FaBars,
   FaTimes,
-  FaGlobeAmericas,
+  // FaGlobeAmericas,
 } from "react-icons/fa";
 
 const navLinks = [
@@ -21,7 +21,7 @@ const navLinks = [
 const Navbar: React.FC = () => {
   const [menuOpen, setMenuOpen] = useState(false);
   const [activeSection, setActiveSection] = useState<string>("home");
-  const [showLanguageMenu, setShowLanguageMenu] = useState(false);
+  // const [showLanguageMenu, setShowLanguageMenu] = useState(false);
   const [scrolled, setScrolled] = useState(false);
 
   const menuRef = useRef<HTMLDivElement | null>(null);
