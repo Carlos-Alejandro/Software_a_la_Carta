@@ -1,12 +1,11 @@
-{/* Sección: de whatsapp */}      
 const Whatsapp = () => (
   <a
-    href="https://wa.me/4421323281?text=Hola%2C%20quiero%20hacer%20una%20reserva%20en%20de%20sus%20cuartos"
+    href="https://wa.me/5219982210316?text=Hola%20Carlos%2C%20vi%20tu%20portafolio%20y%20me%20gustaría%20cotizar%20un%20proyecto%20"
     target="_blank"
     rel="noopener noreferrer"
     className="fixed bottom-6 right-6 z-50"
   >
-    <button className="bg-green-500 hover:bg-green-600 text-white p-4 rounded-full shadow-xl transition-transform hover:scale-110">
+    <button className="bg-green-500 hover:bg-green-600 text-white p-4 rounded-full shadow-xl transition-transform hover:scale-110 cursor-pointer">
       <svg
         className="w-7 h-7"
         fill="currentColor"

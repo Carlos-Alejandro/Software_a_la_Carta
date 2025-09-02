@@ -6,6 +6,7 @@ import Hero from "../components/Hero/Hero";
 import FeaturesSection from "../components/Sections/FeaturesSection";
 import ProjectsSection from "../components/Sections/ProjectsSection";
 import StatsSection from "../components/Sections/StatsSection";
+import CTASection from "../components/Sections/CTASection";
 
 
 
@@ -44,21 +45,9 @@ export default function Home() {
 
             {/* Testimonials */}
             {/* <TestimonialsSection /> */}
+
             {/* Call to Action */}
-            <section className="bg-gradient-to-r from-blue-500 to-purple-500 py-16">
-                <div className="container mx-auto px-6 text-center text-white">
-                    <h2 className="text-3xl md:text-4xl font-bold mb-4">¿Listo para digitalizar tu negocio?</h2>
-                    <p className="mb-8 text-lg">
-                        Contáctanos y recibe una asesoría gratuita para tu proyecto.
-                    </p>
-                    <a
-                        href="mailto:contacto@softwarealacarta.com"
-                        className="bg-white text-blue-600 px-8 py-3 rounded-full font-semibold shadow-lg hover:bg-gray-100 transition-all duration-300"
-                    >
-                        Escríbenos
-                    </a>
-                </div>
-            </section>
+            <CTASection />
 
             {/* Animations */}
             <style>
@@ -98,7 +87,7 @@ export default function Home() {
             </section>  
         
         { /* Contacto */}
-            <section id="contacto" className="scroll-mt-0">
+            <section id="contacto" className="scroll-mt-12">
                 <Contact />
             </section>  
             
