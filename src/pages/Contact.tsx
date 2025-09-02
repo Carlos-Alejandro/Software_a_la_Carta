@@ -58,8 +58,10 @@ export default function Contact() {
   return (
     <section
       id="contacto"
-      // Altura: toda la ventana menos ~72px (navbar fija). Ajusta 72 si tu navbar mide distinto.
-      className="relative h-[calc(100vh-72px)] min-h-[560px] max-h-[900px] px-5 py-6 flex items-center justify-center overflow-hidden"
+        className="relative min-h-[calc(100svh-var(--nav-h))] h-auto max-h-none
+             px-5 pt-[max(env(safe-area-inset-top),1rem)]
+             pb-[max(env(safe-area-inset-bottom),1.25rem)] md:py-12
+             flex items-center justify-center overflow-hidden"
     >
       {/* fondo */}
       <div className="absolute inset-0 bg-[linear-gradient(120deg,#0d1b2a_0%,#0d1b2a_55%,#162d46_55%,#162d46_100%)]" />
@@ -135,7 +137,7 @@ export default function Contact() {
                 animate={{ opacity: 1, y: 0 }}
                 className="mb-3 rounded-md bg-emerald-500/10 text-emerald-700 border border-emerald-400/40 px-3 py-2 text-sm"
               >
-                ¡Listo! Mensaje enviado correctamente.
+                ¡Listo! Abrimos tu cliente de correo con el mensaje preparado.
               </motion.div>
             )}
 

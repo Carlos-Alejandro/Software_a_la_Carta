@@ -1,10 +1,5 @@
-import { Swiper, SwiperSlide } from 'swiper/react';
-// @ts-ignore
-import 'swiper/css';
-// @ts-ignore
-import 'swiper/css/pagination';
-import { Pagination } from 'swiper/modules';
-import { motion } from 'framer-motion';
+import { motion } from "framer-motion";
+import MobileCarousel from "../common/MobileCarousel";
 
 const features = [
   {
@@ -41,42 +36,41 @@ const features = [
   },
 ];
 
+function FeatureCard({ f, i }: { f: typeof features[number]; i: number }) {
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 30 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true }}
+      transition={{ duration: 0.5, delay: i * 0.2 }}
+      className="bg-white rounded-xl shadow-lg p-8 h-[280px] flex flex-col items-center justify-start text-center transition-transform hover:scale-[1.03] duration-300"
+    >
+      <div className="mb-4">{f.icon}</div>
+      <h3 className="text-xl font-semibold mb-2 text-gray-900">{f.title}</h3>
+      <p className="text-gray-600">{f.description}</p>
+    </motion.div>
+  );
+}
+
 export default function FeaturesSection() {
   return (
-    <section className="bg-gray-50 py-16 px-4 md:px-20 overflow-hidden">
-      <h2 className="text-3xl md:text-4xl font-bold text-center mb-12 text-gray-800">
-        ¿Por qué elegirnos?
-      </h2>
+    <section className="bg-gray-50 py-16 pb-24 md:pb-16 px-4 md:px-20 overflow-hidden">
+      <h2 className="text-3xl md:text-4xl font-bold text-center mb-12 text-gray-800">¿Por qué elegirnos?</h2>
 
-      <Swiper
-        className="!overflow-visible w-full"
-        spaceBetween={30}
-        pagination={{ clickable: true }}
-        breakpoints={{
-          0: { slidesPerView: 'auto' },
-          768: { slidesPerView: 3 },
-        }}
-        modules={[Pagination]}
-      >
-        {features.map((feature, index) => (
-          <SwiperSlide
-            key={index}
-            className="w-[280px] md:w-auto"
-          >
-            <motion.div
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: index * 0.2 }}
-              viewport={{ once: true }}
-              className="bg-white rounded-xl shadow-lg p-8 h-[280px] flex flex-col items-center justify-start text-center transition-transform hover:scale-[1.03] duration-300"
-            >
-              <div className="mb-4">{feature.icon}</div>
-              <h3 className="text-xl font-semibold mb-2 text-gray-900">{feature.title}</h3>
-              <p className="text-gray-600">{feature.description}</p>
-            </motion.div>
-          </SwiperSlide>
+      {/* MÓVIL */}
+      <MobileCarousel
+        items={features}
+        slideWidthClass="w-[280px]"
+        autoplayDelay={2000}
+        renderCard={(f, i) => <FeatureCard f={f} i={i} />}
+      />
+
+      {/* DESKTOP */}
+      <div className="hidden md:grid grid-cols-3 gap-8 max-w-6xl mx-auto">
+        {features.map((f, i) => (
+          <FeatureCard key={f.title} f={f} i={i} />
         ))}
-      </Swiper>
+      </div>
     </section>
   );
 }

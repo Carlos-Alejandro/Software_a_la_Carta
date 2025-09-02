@@ -274,18 +274,20 @@ export default function Footer() {
           </div>
         </div>
 
+        <div id="fab-sentinel" className="h-px w-full"></div>
+
         {/* Bottom row */}
-        <div className="mt-10 flex flex-col md:flex-row items-center justify-between gap-3 text-[13px] text-white/65">
+        <div className="mt-10 flex flex-col md:flex-row items-center justify-between gap-3 text-[13px] text-white/65 border-t border-white/10 pt-5">
           <p>© {year} {BRAND}. Todos los derechos reservados.</p>
           <div className="flex items-center gap-4">
             <a href="#" className="hover:text-yellow-300">Aviso de privacidad</a>
             <a href="#" className="hover:text-yellow-300">Términos</a>
-            <button
+            {/* <button
               onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
               className="hover:text-yellow-300"
             >
               Volver arriba ↑
-            </button>
+            </button> */}
           </div>
         </div>
       </div>
