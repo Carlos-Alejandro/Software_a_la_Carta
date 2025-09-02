@@ -188,7 +188,7 @@ const Navbar: React.FC = () => {
             </motion.button>
           </Link>
 
-          <motion.button
+          {/* <motion.button
             ref={menuBtnRef}
             onClick={() => setShowLanguageMenu(!showLanguageMenu)}
             whileHover={{ rotate: 20 }}
@@ -199,7 +199,7 @@ const Navbar: React.FC = () => {
             aria-label="Cambiar idioma"
           >
             <FaGlobeAmericas />
-          </motion.button>
+          </motion.button> */}
         </div>
 
         {/* Mobile button */}
@@ -258,7 +258,7 @@ const Navbar: React.FC = () => {
               </Link>
             </motion.li>
 
-            <motion.li whileHover={{ scale: 1.02 }}>
+            {/* <motion.li whileHover={{ scale: 1.02 }}>
               <button
                 className="flex justify-center items-center gap-2 text-blue-600 text-xl hover:text-blue-800 transition w-full focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-400 rounded"
                 onClick={() => {
@@ -268,7 +268,7 @@ const Navbar: React.FC = () => {
               >
                 <FaGlobeAmericas /> Cambiar idioma
               </button>
-            </motion.li>
+            </motion.li> */}
           </ul>
         </motion.div>
       )}
