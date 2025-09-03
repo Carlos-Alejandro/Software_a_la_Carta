@@ -1,3 +1,4 @@
+// src/components/common/ScrollToTop.tsx
 import { useEffect } from "react";
 import { useLocation } from "react-router-dom";
 
@@ -5,9 +6,11 @@ const ScrollToTop = () => {
   const { pathname, hash } = useLocation();
 
   useEffect(() => {
-    // Solo hacemos scroll arriba si NO hay hash (#)
-    if (!hash) {
-      window.scrollTo({ top: 0, left: 0, behavior: "smooth" });
+    // Si Navbar guardó un scroll pendiente, no forzamos scrollTop aquí
+    const pending = localStorage.getItem("scrollTo");
+
+    if (!hash && !pending) {
+      window.scrollTo({ top: 0, left: 0, behavior: "auto" });
     }
   }, [pathname, hash]);
 

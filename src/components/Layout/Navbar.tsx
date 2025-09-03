@@ -33,6 +33,7 @@ const Navbar: React.FC = () => {
   const [activeSection, setActiveSection] = useState<string>("home");
   const [scrolled, setScrolled] = useState(false);
   const [scrollProgress, setScrollProgress] = useState(0);
+  const isNavigatingRef = useRef(false);
 
   const menuRef = useRef<HTMLDivElement | null>(null);
   const menuBtnRef = useRef<HTMLButtonElement | null>(null);
@@ -69,6 +70,13 @@ const Navbar: React.FC = () => {
 
     sections.forEach((s) => io.observe(s));
     return () => io.disconnect();
+  }, [location.pathname]);
+
+  /** 1b) Fuera de "/" no hay sección activa */
+  useEffect(() => {
+    if (location.pathname !== "/") {
+      setActiveSection(""); // ninguna sección activa fuera del home
+    }
   }, [location.pathname]);
 
   /** 2) Fondo + progreso scroll */
@@ -128,12 +136,19 @@ const Navbar: React.FC = () => {
     const scrollTo = localStorage.getItem(key);
     if (location.pathname === "/" && scrollTo) {
       const el = document.querySelector(scrollTo);
-      if (el) setTimeout(() => el.scrollIntoView({ behavior: "smooth" }), 80);
+      if (el) {
+        // Espera a que el layout asiente (dos raf) y *luego* scrollea
+        requestAnimationFrame(() => {
+          requestAnimationFrame(() => {
+            el.scrollIntoView({ behavior: "smooth", block: "start" });
+          });
+        });
+      }
       localStorage.removeItem(key);
     }
   }, [location.pathname]);
 
-  // Cerrar menú al navegar
+  // Cerrar menú al navegar + trap focus
   useEffect(() => {
     if (!menuOpen || !menuRef.current) return;
     const drawer = menuRef.current;
@@ -159,15 +174,26 @@ const Navbar: React.FC = () => {
     return () => document.removeEventListener("keydown", onKeyDown);
   }, [menuOpen]);
 
-
+  /** 5) Click en enlaces de sección SIN cambiar URL (sin #) con debounce */
   const handleAnchorClick = (e: React.MouseEvent, href: string) => {
+    e.preventDefault();
+    if (isNavigatingRef.current) return;         // ignora taps muy seguidos
+    isNavigatingRef.current = true;
+
+    const finish = () => (isNavigatingRef.current = false);
+
     if (window.location.pathname !== "/") {
-      e.preventDefault();
       localStorage.setItem("scrollTo", href);
       navigate("/");
+      // suelta el candado después de un tick corto
+      setTimeout(finish, 120);
     } else {
       const el = document.querySelector(href);
       if (el) el.scrollIntoView({ behavior: "smooth" });
+      // limpia cualquier hash residual estando en "/"
+      window.history.replaceState(null, "", window.location.pathname);
+      // da tiempo a que termine el smooth scroll
+      setTimeout(finish, 300);
     }
     setMenuOpen(false);
   };
@@ -238,7 +264,7 @@ const Navbar: React.FC = () => {
                 className="relative"
               >
                 <a
-                  href={link.href}
+                  href="/"  // mostrar "/" en el tooltip/URL, nunca "#"
                   onClick={(e) => handleAnchorClick(e, link.href)}
                   aria-current={isActive ? "page" : undefined}
                   role="menuitem"
@@ -342,7 +368,7 @@ const Navbar: React.FC = () => {
                   return (
                     <li key={link.name} role="none">
                       <a
-                        href={link.href}
+                        href="/"  // también en móvil mostramos "/"
                         onClick={(e) => handleAnchorClick(e, link.href)}
                         aria-current={isActive ? "page" : undefined}
                         role="menuitem"
