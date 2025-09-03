@@ -28,7 +28,7 @@ export function MobileCarousel<T>({
   slideWidthClass = "w-[280px]",
   spaceBetween = 30,
   className = "",
-  autoplayDelay = 3500,
+  autoplayDelay = 4000,
   autoplay = true,
 }: MobileCarouselProps<T>) {
   const containerRef = useRef<HTMLDivElement>(null);
