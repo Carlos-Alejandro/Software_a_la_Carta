@@ -137,7 +137,7 @@ export default function Contact() {
                 animate={{ opacity: 1, y: 0 }}
                 className="mb-3 rounded-md bg-emerald-500/10 text-emerald-700 border border-emerald-400/40 px-3 py-2 text-sm"
               >
-                ¡Listo! Abrimos tu cliente de correo con el mensaje preparado.
+                ¡Listo! Mensaje enviado correctamente.
               </motion.div>
             )}
 

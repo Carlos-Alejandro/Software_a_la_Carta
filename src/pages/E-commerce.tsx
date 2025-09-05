@@ -1,81 +1,202 @@
-import React from "react";
+import React, { useEffect, useMemo, useState } from "react";
+import { motion } from "framer-motion";
+import type { Variants, Easing } from "framer-motion";
+import { FaMicrochip, FaKeyboard } from "react-icons/fa";
+import { MdStorage } from "react-icons/md";
+import { SiNvidia } from "react-icons/si";
 
-const ECommerce: React.FC = () => {
-  return (
-    <div className="flex flex-col items-center justify-center min-h-screen bg-gradient-to-br from-indigo-500 via-purple-500 to-pink-500 relative overflow-hidden">
-      {/* Animated floating shapes */}
-      <div className="absolute top-0 left-0 w-full h-full pointer-events-none">
-        <div className="animate-bounce-slow absolute left-10 top-20 w-24 h-24 bg-white bg-opacity-20 rounded-full blur-xl" />
-        <div className="animate-spin-slow absolute right-20 bottom-32 w-32 h-32 bg-pink-300 bg-opacity-30 rounded-full blur-xl" />
-        <div className="animate-pulse absolute left-1/2 top-1/3 w-16 h-16 bg-indigo-400 bg-opacity-40 rounded-full blur-xl" />
-      </div>
+const NAV_H = 72;
 
-      {/* Main content */}
-      <div className="z-10 flex flex-col items-center">
-        <div className="flex items-center gap-4 mb-6">
-          <svg
-            className="w-16 h-16 text-white animate-bounce"
-            fill="none"
-            stroke="currentColor"
-            strokeWidth={2}
-            viewBox="0 0 24 24"
-          >
-            <path
-              d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2 9h14l-2-9M9 21a2 2 0 1 0 0-4 2 2 0 0 0 0 4zm8 0a2 2 0 1 0 0-4 2 2 0 0 0 0 4z"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-            />
-          </svg>
-          <h1 className="text-5xl font-extrabold text-white drop-shadow-lg animate-fade-in">
-            ¡Próximamente!
-          </h1>
-        </div>
-        <p className="text-xl text-white/80 mb-8 animate-fade-in-delay text-center max-w-lg">
-          Estamos trabajando en una experiencia de e-commerce increíble para ti.<br />
-          ¡Prepárate para descubrir productos únicos, ofertas exclusivas y mucho más!
-        </p>
-        <button
-          className="px-8 py-3 bg-white text-indigo-600 font-bold rounded-full shadow-lg hover:bg-indigo-600 hover:text-white transition-all duration-300 animate-fade-in-delay2"
-          disabled
-        >
-          Mantente atento 🚀
-        </button>
-      </div>
+const easeOutExpo: Easing = [0.16, 1, 0.3, 1];
 
-      {/* Custom animations */}
-      <style>
-        {`
-          .animate-bounce-slow {
-            animation: bounce 3s infinite;
-          }
-          .animate-spin-slow {
-            animation: spin 8s linear infinite;
-          }
-          .animate-fade-in {
-            animation: fadeIn 1.2s ease-out;
-          }
-          .animate-fade-in-delay {
-            animation: fadeIn 2s ease-out;
-          }
-          .animate-fade-in-delay2 {
-            animation: fadeIn 2.8s ease-out;
-          }
-          @keyframes bounce {
-            0%, 100% { transform: translateY(0);}
-            50% { transform: translateY(-30px);}
-          }
-          @keyframes spin {
-            0% { transform: rotate(0deg);}
-            100% { transform: rotate(360deg);}
-          }
-          @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(30px);}
-            to { opacity: 1; transform: translateY(0);}
-          }
-        `}
-      </style>
-    </div>
-  );
+const container: Variants = {
+  hidden: { opacity: 0, y: 20 },
+  show: {
+    opacity: 1,
+    y: 0,
+    transition: { staggerChildren: 0.08, duration: 0.6, ease: easeOutExpo },
+  },
 };
 
-export default ECommerce;
+const item: Variants = {
+  hidden: { opacity: 0, y: 10 },
+  show: {
+    opacity: 1,
+    y: 0,
+    transition: { duration: 0.5, ease: easeOutExpo },
+  },
+};
+
+function useCountdown(target: Date) {
+  const [now, setNow] = useState<Date>(new Date());
+  useEffect(() => {
+    const t = setInterval(() => setNow(new Date()), 1000);
+    return () => clearInterval(t);
+  }, []);
+  const diff = Math.max(0, target.getTime() - now.getTime());
+  const totalSeconds = Math.floor(diff / 1000);
+  const days = Math.floor(totalSeconds / (3600 * 24));
+  const hours = Math.floor((totalSeconds % (3600 * 24)) / 3600);
+  const minutes = Math.floor((totalSeconds % 3600) / 60);
+  const seconds = totalSeconds % 60;
+  return { days, hours, minutes, seconds };
+}
+
+function Countdown({ targetDate }: { targetDate: Date }) {
+  const { days, hours, minutes, seconds } = useCountdown(targetDate);
+  const pad = (n: number) => n.toString().padStart(2, "0");
+  const timeBox = (
+    label: string,
+    value: string | number,
+    key: string,
+  ) => (
+    <div
+      key={key}
+      className="relative flex w-20 sm:w-24 flex-col items-center rounded-xl border border-white/10 bg-white/5 px-2 py-3 backdrop-blur-sm"
+    >
+      <span className="text-2xl sm:text-3xl font-bold tabular-nums tracking-tight">
+        {value}
+      </span>
+      <span className="mt-1 text-[11px] sm:text-xs text-white/60">{label}</span>
+      <div className="pointer-events-none absolute inset-0 rounded-xl ring-1 ring-inset ring-white/5" />
+    </div>
+  );
+
+  return (
+    <div className="grid grid-cols-4 gap-2 sm:gap-3">
+      {timeBox("Días", days, "d")}
+      {timeBox("Horas", pad(hours), "h")}
+      {timeBox("Min", pad(minutes), "m")}
+      {timeBox("Seg", pad(seconds), "s")}
+    </div>
+  );
+}
+
+function CategoryCard({
+  title,
+  Icon,
+  desc,
+}: {
+  title: string;
+  Icon: React.ComponentType<{ className?: string }>;
+  desc: string;
+}) {
+  return (
+    <motion.div
+      variants={item}
+      whileHover={{ y: -4, scale: 1.02 }}
+      className="group relative flex h-[150px] md:h-[160px] flex-col overflow-hidden rounded-2xl border border-white/10 bg-white/5 p-4"
+    >
+      <div className="pointer-events-none absolute -inset-px rounded-2xl bg-gradient-to-br from-sky-500/20 via-indigo-500/10 to-fuchsia-500/20 opacity-0 blur-xl transition-opacity duration-500 group-hover:opacity-100" />
+
+      <div className="relative flex items-start gap-3">
+        <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-white/10">
+          <Icon className="h-5 w-5" />
+        </div>
+        <div>
+          <h3 className="text-base font-semibold leading-tight">{title}</h3>
+          <p className="mt-1 text-xs text-white/70">{desc}</p>
+        </div>
+      </div>
+
+      <div className="relative mt-auto h-16 rounded-xl border border-dashed border-white/10 bg-gradient-to-br from-white/[0.03] to-white/[0.01]" />
+    </motion.div>
+  );
+}
+
+export default function ComingSoonLanding() {
+  const launchDate = useMemo(() => {
+    const d = new Date();
+    d.setDate(d.getDate() + 21);
+    return d;
+  }, []);
+
+  const gridPatternStyle: React.CSSProperties = {
+    backgroundImage:
+      "linear-gradient(to right, rgba(255,255,255,0.06) 1px, transparent 1px)," +
+      "linear-gradient(to bottom, rgba(255,255,255,0.06) 1px, transparent 1px)",
+    backgroundSize: "36px 36px",
+    maskImage:
+      "radial-gradient(ellipse at center, black, transparent 70%)",
+  };
+
+  return (
+    <div
+      className="relative min-h-screen w-full overflow-hidden bg-[#0d1b2a] text-white flex items-center"
+      style={{ ["--nav-h" as any]: `${NAV_H}px` }}
+    >
+      <div
+        className="pointer-events-none absolute inset-0 -z-10"
+        style={gridPatternStyle}
+      />
+
+      {/* Centramos verticalmente todo el contenido en la pantalla */}
+      <div className="pt-[var(--nav-h)] mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 flex-1 flex items-center">
+        <motion.section
+          variants={container}
+          initial="hidden"
+          animate="show"
+          className="relative grid grid-cols-1 gap-8 lg:grid-cols-2 w-full"
+        >
+          <motion.div variants={item} className="flex flex-col justify-center">
+            <span className="mb-3 inline-flex max-w-fit items-center gap-2 rounded-full border border-white/10 bg-white/5 px-3 py-1 text-xs text-white/70">
+              <span className="inline-block h-2 w-2 animate-pulse rounded-full bg-emerald-400" />
+              Tienda en construcción
+            </span>
+
+            <h1 className="mt-3 text-4xl font-extrabold leading-[1.05] sm:text-5xl md:text-6xl">
+              <span className="bg-gradient-to-r from-sky-300 via-indigo-300 to-fuchsia-300 bg-clip-text text-transparent">
+                ¡Próximamente!
+              </span>
+            </h1>
+            <p className="mt-4 max-w-xl text-base leading-relaxed text-white/80 sm:text-lg">
+              Estamos preparando la mejor experiencia para armar tu PC: GPUs, SSD, RAM,
+              periféricos y más. Sé de los primeros en enterarte del lanzamiento y obtén
+              <span className="font-semibold text-white"> ofertas de apertura</span>.
+            </p>
+
+            <div className="mt-6 flex flex-col items-start gap-5 sm:flex-row sm:items-center">
+              <Countdown targetDate={launchDate} />
+              <div className="text-xs text-white/60">Lanzamiento estimado</div>
+            </div>
+          </motion.div>
+
+          <section id="categorias" className="scroll-mt-[var(--nav-h)] flex flex-col justify-center">
+            <div className="flex items-center justify-between">
+              <h2 className="text-base font-semibold text-white/80">Lo que encontrarás</h2>
+              <span className="text-[11px] text-white/50">Selección curada para entusiastas</span>
+            </div>
+            <motion.div
+              variants={container}
+              initial="hidden"
+              whileInView="show"
+              viewport={{ once: true, margin: "-80px" }}
+              className="mt-4 grid grid-cols-1 gap-4 sm:grid-cols-2"
+            >
+              <CategoryCard
+                title="Tarjetas Gráficas"
+                Icon={SiNvidia}
+                desc="Series RTX y Radeon para gaming, IA y render."
+              />
+              <CategoryCard
+                title="Procesadores"
+                Icon={FaMicrochip}
+                desc="Intel® Core™ y AMD Ryzen™ de última generación."
+              />
+              <CategoryCard
+                title="Almacenamiento"
+                Icon={MdStorage}
+                desc="SSD NVMe Gen 4/5, SATA y externos de alto rendimiento."
+              />
+              <CategoryCard
+                title="Periféricos"
+                Icon={FaKeyboard}
+                desc="Teclados, mouse, headsets y más para tu setup."
+              />
+            </motion.div>
+          </section>
+        </motion.section>
+      </div>
+    </div>
+  );
+}
