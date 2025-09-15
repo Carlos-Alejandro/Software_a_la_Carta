@@ -8,7 +8,7 @@ const projects = [
     description:
       "Sitio web para una empresa de alquiler vacacional en Cancún Q.Roo. Se implementó galería de propiedades, formulario de contacto, integración con WhatsApp y diseño responsivo.",
     tags: ["Google Maps", "Web responsive", "Optimización SEO", ],
-    image: "https://staging-jubilee.flickr.com/65535/54533206557_82bcf75427_z.jpg",
+    image: "/Proyectos/RentaVacacionalOrquideas.webp",
     url: "https://rentavacacionalorquideas.com.mx/",
   },
   {
@@ -16,7 +16,7 @@ const projects = [
     description:
       "Desarrollamos un sitio web para una agencia de tours con catálogo de paquetes, sistema de reservas vía WhatsApp, testimonios y diseño atractivo para dispositivos móviles.",
     tags: ["Sitio turístico", "Calendario", "Reservas online"],
-    image: "/Proyectos/MayaAmazing.png",
+    image: "/Proyectos/MayaAmazing.webp",
     url: "https://mayanamazingtours.com/",
   },
   {
@@ -24,7 +24,7 @@ const projects = [
     description:
       "Sitio corporativo para empresa de instalaciones eléctricas. Se presentan servicios industriales, clientes destacados y contacto profesional.",
     tags: ["Sitio corporativo", "Galería", "Reservas por WhatsApp"],
-    image: "/Proyectos/Inplelec.png",
+    image: "/Proyectos/Inplelec.webp",
     url: "https://inplelec.com/",
   },
 ];
@@ -42,15 +42,18 @@ function ProjectCard({ p, i }: { p: typeof projects[number]; i: number }) {
     >
       {/* Imagen con lazy + tamaño consistente */}
       <div className="relative w-full h-44">
-        <img
-          src={p.image}
-          alt={p.title}
-          loading="lazy"
-          decoding="async"
-          sizes="(max-width: 640px) 300px, (max-width: 1024px) 45vw, 33vw"
-          className="absolute inset-0 w-full h-full object-cover border-b border-gray-200 "
-        />
+        <picture>
+          <img
+            src={p.image}
+            alt={p.title}
+            loading="lazy"
+            decoding="async"
+            sizes="(max-width: 640px) 300px, (max-width: 1024px) 45vw, 33vw"
+            className="absolute inset-0 w-full h-full object-cover border-b border-gray-200"
+          />
+        </picture>
       </div>
+
 
       <div className="p-5 flex flex-col justify-between flex-grow">
         <div>
