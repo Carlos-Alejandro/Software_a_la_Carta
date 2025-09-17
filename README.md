@@ -18,13 +18,15 @@ Este repositorio contiene el código fuente del sitio web oficial, desarrollado 
 
 ## 📸 Capturas
 
-### 🖥️ Desktop
-![Desktop Screenshot](https://i.ibb.co/8Pjsm17/desktop-preview.png)
+<p align="center">
+  <strong>💻 Desktop</strong><br><br>
+  <img src="https://i.imgur.com/aqhaXow.png" alt="Desktop Screenshot" width="800"/>
+</p>
 
-### 📱 Mobile
-![Mobile Screenshot](https://i.ibb.co/98GkPr0/mobile-preview.png)
-
-*(Las imágenes son de ejemplo, reemplázalas con tus capturas reales.)*
+<p align="center">
+  <strong>📱 Mobile</strong><br><br>
+  <img src="https://i.imgur.com/y8YjdOP.jpeg" alt="Mobile Screenshot" width="350"/>
+</p>
 
 ---
 
